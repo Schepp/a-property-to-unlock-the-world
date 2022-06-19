@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Image Values and Replaced Content Module Level 3: image() Function</title>
+    <style>
+        div {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            height: 200px;
+            border: 1px solid gray;
+            background-size: cover;
+        }
+
+        .a {
+            background: image('https://picsum.photos/200/300');
+        }
+
+        .b {
+            background: image(#ccc);
+        }
+    </style>
+</head>
+<body>
+<div class="a">This should show an image</div>
+<div class="b">This should be light gray</div>
+<p>Spec: <a href="https://www.w3.org/TR/css3-images/#image-notation">CSS Image Values and Replaced Content Module Level 3: <code>image()</code> Function</a></p>
+</body>
+</html>

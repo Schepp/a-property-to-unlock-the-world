@@ -1,0 +1,677 @@
+@charset "UTF-8";
+
+@property --zoom {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+@property --dividend {
+  syntax: '<integer>'; inherits: true; initialValue: 0;
+}
+@property --divisor {
+  syntax: '<integer>'; inherits: true; initialValue: 0;
+}
+@property --integerQuotient {
+  syntax: '<integer>'; inherits: true; initialValue: 0;
+}
+@property --modulo {
+  syntax: '<number>'; inherits: true; initialValue: 0;
+}
+@keyframes fade-and-shrink {
+  10% {
+    opacity: 1;
+  }
+
+  20% {
+    opacity: 0;
+  }
+
+  25% {
+    --zoom: 1
+  }
+
+  37.5%, 62.5% {
+    --zoom: 0.1
+  }
+
+  75% {
+    --zoom: 1
+  }
+
+  80% {
+    opacity: 0;
+  }
+
+  90% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes chart-open {
+  from {
+    --multiplier: 0;
+  }
+  20% {
+    --multiplier: 1;
+  }
+  to {
+    --multiplier: 1;
+  }
+}
+
+@keyframes chart-open {
+  from {
+    --multiplier: 0;
+  }
+  20% {
+    --multiplier: 1;
+  }
+  to {
+    --multiplier: 1;
+  }
+}
+
+@-webkit-keyframes cross-fade {
+  0% {
+    --cross-fade: 0;
+  }
+  50% {
+    --cross-fade: 1;
+  }
+  100% {
+    --cross-fade: 0;
+  }
+}
+
+@keyframes cross-fade {
+  0% {
+    --cross-fade: 0;
+  }
+  50% {
+    --cross-fade: 1;
+  }
+  100% {
+    --cross-fade: 0;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #000;
+}
+
+li::marker {
+  content: '• ';
+}
+
+.reveal {
+  color: #fff;
+  font-family: 'Bangers', 'Lato', sans-serif;
+  font-size: 60px;
+  letter-spacing: 2px;
+  text-shadow: 1px -1px 1px #000, 1px 1px 1px #000, -1px -1px 1px #000, -1px 1px 1px #000;
+}
+
+.reveal h1 {
+  font-size: 2em;
+}
+
+.reveal h2 {
+  font-size: 1.5em;
+}
+
+.reveal h3 {
+  padding-bottom: 0.25em;
+  font-size: 1.5em;
+  text-transform: none;
+}
+
+.reveal h4 {
+  font-size: 1em;
+}
+
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6, .reveal ol, .reveal ul, .reveal p, .reveal table, .reveal pre {
+  margin-bottom: 1rem;
+  color: #fff;
+  font-family: 'Bangers', 'Lato', sans-serif;
+  line-height: 1.25;
+  text-shadow: inherit;
+}
+
+.reveal a:not(.image) {
+  color: #ffde00;
+}
+
+.reveal pre {
+  box-shadow: none;
+  font-size: inherit;
+  text-transform: none;
+}
+
+.reveal code {
+  padding: 0 10px;
+  background-color: #333;
+  background-clip: padding-box;
+  border: solid transparent;
+  border-width: 0 28px;
+  border-image: url("../images/marker-border-222.png") 9 30 stretch;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.8em;
+  text-transform: none;
+  vertical-align: middle;
+}
+
+.reveal iframe,
+.reveal pre code {
+  max-height: 90%;
+  padding: 10px 20px;
+  -webkit-filter: none;
+  filter: none;
+  background-clip: padding-box;
+  border: 30px solid transparent;
+  border-image: url("../images/comic-border.png") 30 30 stretch;
+}
+
+.reveal pre {
+  margin-top: -1rem !important;
+}
+
+.reveal pre code {
+  background-color: #111;
+  font-size: 0.6em !important;
+}
+
+.reveal pre code::-webkit-scrollbar {
+  display: none;
+}
+
+.reveal iframe {
+  background-color: #fff;
+}
+
+html.faded .reveal .backgrounds {
+  opacity: 0.5;
+  background-blend-mode: multiply;
+}
+
+html.grayscaled .reveal .backgrounds {
+  -webkit-filter: grayscale(1);
+  filter: grayscale(1);
+}
+
+.reveal .right {
+  margin-left: 33%;
+}
+
+.reveal section img,
+.reveal section video {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+.reveal section div[id] {
+  display: inline-block;
+}
+
+.reveal section div[id] img,
+.reveal section div[id] video {
+  max-width: 100%;
+  max-height: none;
+  margin: 0 auto;
+}
+
+.reveal li {
+  margin-bottom: 1rem;
+}
+
+.reveal .comic-border {
+  padding: 10px;
+  border: 1px solid #000;
+  background: #fff;
+}
+
+.reveal table {
+  table-layout: fixed;
+  width: 100%;
+  max-width: 1900px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1em 0;
+  font-size: 1em;
+  border-top: 1px solid currentcolor;
+  border-bottom: 1px solid currentcolor;
+}
+
+.smaller .reveal table {
+  font-size: 0.8em;
+}
+
+.reveal table th, .reveal table td {
+  padding: 0.1em 0.2em;
+  white-space: nowrap;
+  text-align: center;
+  border-bottom: 0.05em dotted currentcolor;
+}
+
+.reveal video {
+  width: auto;
+  height: 80%;
+}
+
+.reveal .datatable + table {
+  font-size: 0.5em;
+  line-height: 1.4;
+  border-collapse: collapse;
+}
+
+.reveal .datatable + table tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.reveal .datatable + table th, .reveal .datatable + table td {
+  text-align: left;
+}
+
+.reveal blockquote {
+  quotes: "“" "”" "‘" "’";
+  position: relative;
+  margin-bottom: 3rem;
+  padding: 3rem 4rem;
+  background-color: #fff;
+  color: #000;
+  border-radius: 50%;
+  font-size: 0.65em;
+  line-height: 1.4;
+  font-style: normal;
+  text-align: center;
+  -webkit-filter: drop-shadow(0 0 2px black);
+  filter: drop-shadow(0 0 2px black);
+  text-shadow: none;
+}
+
+.reveal blockquote:before,
+.reveal blockquote p:before {
+  content: '';
+  width: 25%;
+  height: 350px;
+}
+
+.reveal blockquote:before {
+  float: left;
+  -webkit-shape-outside: polygon(0 0, 100% 0, 0 50%, 100% 100%, 0 100%);
+  shape-outside: polygon(0 0, 100% 0, 0 50%, 100% 100%, 0 100%);
+}
+
+.reveal blockquote:after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  bottom: -50px;
+  left: 60%;
+  border: 70px solid #fff;
+  border-color: #fff transparent transparent #fff;
+}
+
+.reveal blockquote p {
+  display: inline !important;
+  color: inherit;
+  font-family: inherit;
+}
+
+.reveal blockquote p:before {
+  float: right;
+  -webkit-shape-outside: polygon(100% 0, 0 0, 100% 50%, 0 100%, 100% 100%);
+  shape-outside: polygon(100% 0, 0 0, 100% 50%, 0 100%, 100% 100%);
+}
+
+.reveal blockquote p:first-letter {
+  font-size: 1.5em;
+}
+
+.reveal blockquote > *:last-child {
+  margin-bottom: 0;
+}
+
+.reveal blockquote br {
+  line-height: 2;
+}
+
+.reveal .inline-row > div, .reveal .inline-row img, .reveal .inline-row pre {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.reveal .flex-row {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  max-width: 100%;
+}
+
+.reveal .flex-row > * {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.reveal .flex-row > *:first-child:nth-last-child(1),
+.reveal .flex-row > *:first-child:nth-last-child(1) ~ * {
+  -webkit-flex: 1 1 calc(100% / 1);
+  -ms-flex: 1 1 calc(100% / 1);
+  flex: 1 1 calc(100% / 1);
+  min-width: 1px;
+}
+
+.reveal .flex-row > *:first-child:nth-last-child(2),
+.reveal .flex-row > *:first-child:nth-last-child(2) ~ * {
+  -webkit-flex: 1 1 calc(100% / 2);
+  -ms-flex: 1 1 calc(100% / 2);
+  flex: 1 1 calc(100% / 2);
+  min-width: 1px;
+}
+
+.reveal .flex-row > *:first-child:nth-last-child(3),
+.reveal .flex-row > *:first-child:nth-last-child(3) ~ * {
+  -webkit-flex: 1 1 calc(100% / 3);
+  -ms-flex: 1 1 calc(100% / 3);
+  flex: 1 1 calc(100% / 3);
+  min-width: 1px;
+}
+
+.reveal .flex-row > *:first-child:nth-last-child(4),
+.reveal .flex-row > *:first-child:nth-last-child(4) ~ * {
+  -webkit-flex: 1 1 calc(100% / 4);
+  -ms-flex: 1 1 calc(100% / 4);
+  flex: 1 1 calc(100% / 4);
+  min-width: 1px;
+}
+
+.reveal .flex-row > *:first-child:nth-last-child(5),
+.reveal .flex-row > *:first-child:nth-last-child(5) ~ * {
+  -webkit-flex: 1 1 calc(100% / 5);
+  -ms-flex: 1 1 calc(100% / 5);
+  flex: 1 1 calc(100% / 5);
+  min-width: 1px;
+}
+
+.reveal .flex-row > *:first-child:nth-last-child(6),
+.reveal .flex-row > *:first-child:nth-last-child(6) ~ * {
+  -webkit-flex: 1 1 calc(100% / 6);
+  -ms-flex: 1 1 calc(100% / 6);
+  flex: 1 1 calc(100% / 6);
+  min-width: 1px;
+}
+
+.reveal .flex-row > *:first-child:nth-last-child(7),
+.reveal .flex-row > *:first-child:nth-last-child(7) ~ * {
+  -webkit-flex: 1 1 calc(100% / 7);
+  -ms-flex: 1 1 calc(100% / 7);
+  flex: 1 1 calc(100% / 7);
+  min-width: 1px;
+}
+
+.reveal .flex-row > *:first-child:nth-last-child(8),
+.reveal .flex-row > *:first-child:nth-last-child(8) ~ * {
+  -webkit-flex: 1 1 calc(100% / 8);
+  -ms-flex: 1 1 calc(100% / 8);
+  flex: 1 1 calc(100% / 8);
+  min-width: 1px;
+}
+
+.reveal .flex-row > *:first-child:nth-last-child(9),
+.reveal .flex-row > *:first-child:nth-last-child(9) ~ * {
+  -webkit-flex: 1 1 calc(100% / 9);
+  -ms-flex: 1 1 calc(100% / 9);
+  flex: 1 1 calc(100% / 9);
+  min-width: 1px;
+}
+
+.reveal .flex-row iframe,
+.reveal .flex-row img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  margin: 0 5px;
+}
+
+.reveal .slide-background:not([data-background-hash]) {
+  background-size: cover;
+  background-blend-mode: lighten;
+}
+
+.reveal .slide-background:not([data-background-hash]):nth-child(3n+1) {
+  background-image: linear-gradient(to bottom, #1f61a8, #1f61a8), url("../images/backgrounds/yellow-comic-zoom-lines.jpg");
+}
+
+.reveal .slide-background:not([data-background-hash]):nth-child(3n+2) {
+  background-image: linear-gradient(to bottom, #088e4c, #088e4c), url("../images/backgrounds/yellow-comic-zoom-lines.jpg");
+  background-color: #088e4c;
+}
+
+.reveal .slide-background:not([data-background-hash]):nth-child(3n+3) {
+  background-image: linear-gradient(to bottom, #9a3e48, #9a3e48), url("../images/backgrounds/yellow-comic-zoom-lines.jpg");
+}
+
+.reveal .slide-number {
+  text-shadow: none;
+}
+
+.reveal .image-grid-headline {
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -200%);
+  transform: translate(-50%, -200%);
+}
+
+.reveal .image-grid {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 1fr;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #000;
+  font-size: 0;
+}
+
+.reveal .image-grid .image {
+  display: inline-block;
+  min-height: 400px;
+  width: 50%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.reveal .image-grid .image:nth-child(1) {
+  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/53819/re7-chris-large.jpg");
+}
+
+.reveal .image-grid .image:nth-child(2) {
+  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/53819/bioshock-large.jpg");
+}
+
+.reveal .image-grid .image:nth-child(3) {
+  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/53819/dishonored-large.jpg");
+}
+
+@supports (display: grid) {
+  .reveal .image-grid .image {
+    width: auto;
+    min-height: 0;
+  }
+
+  .reveal .image-grid .image:nth-child(1) {
+    grid-column: 1 / span 1;
+    grid-row: 1 / 50;
+    -webkit-clip-path: polygon(0 0, 0 86%, 90% 81%, 100% 0);
+    clip-path: polygon(0 0, 0 86%, 90% 81%, 100% 0);
+    margin-top: 0;
+  }
+
+  .reveal .image-grid .image:nth-child(2) {
+    grid-column: 2 / span 1;
+    grid-row: 1 / 50;
+    -webkit-clip-path: polygon(13% 0, 4% 84%, 100% 100%, 100% 0%);
+    clip-path: polygon(13% 0, 4% 84%, 100% 100%, 100% 0%);
+    margin-top: 0;
+    margin-left: -15%;
+    margin-bottom: 18px;
+  }
+
+  .reveal .image-grid .image:nth-child(3) {
+    grid-column: 1 / span 2;
+    grid-row: 50 / 100;
+    -webkit-clip-path: polygon(45% 0, 100% 13%, 100% 100%, 0 100%, 0 4.5%);
+    clip-path: polygon(45% 0, 100% 13%, 100% 100%, 0 100%, 0 4.5%);
+    margin-top: -95px;
+  }
+}
+
+.reveal #format-mjpeg img {
+  vertical-align: bottom;
+}
+
+.reveal .resizable {
+  resize: both;
+  overflow: auto;
+}
+
+.reveal #css-background-position div::before,
+.reveal #css-background-position div::after {
+  content: '';
+}
+
+.reveal #css-animated-backgrounds div,
+.reveal #css-masks div {
+  -webkit-animation-duration: 5000ms !important;
+  animation-duration: 5000ms !important;
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.reveal .future #css-animated-backgrounds div,
+.reveal .future #css-masks div {
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+}
+
+.reveal div[id^="markup-"],
+.reveal div[id^="css-"] {
+  font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial, sans-serif;
+  color: #000;
+  text-shadow: none;
+}
+
+.reveal div[id^="markup-"] img,
+.reveal div[id^="markup-"] svg,
+.reveal div[id^="markup-"] image {
+  vertical-align: bottom;
+}
+
+.reveal #slideshow div {
+  background-image: -webkit-cross-fade(url("../images/iron-man.jpg"), url("../images/hawkeye.jpg"), calc(100% * var(--cross-fade)));
+  background-size: cover;
+  -webkit-animation: cross-fade 10000ms infinite;
+  animation: cross-fade 10000ms infinite;
+}
+
+.reveal #canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+
+.reveal del {
+  opacity: 0.5;
+}
+
+@property --progress {
+  syntax: '<number>';
+  initial-value: 0;
+  inherits: false;
+}
+
+@keyframes fly-in {
+  from {
+    --progress: 0;
+  }
+  to {
+    --progress: 1;
+  }
+}
+
+.fly-in {
+  --progress: 0;
+  --end-rotation: 1070deg;
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  width: 25%;
+  height: auto;
+  transform: scale(calc(1 + (var(--progress) * 2))) rotate(calc(var(--progress) * var(--end-rotation)));
+  opacity: var(--progress);
+  filter: drop-shadow(calc(300px - (var(--progress) * 300px)) calc(300px - (var(--progress) * 300px)) calc(50px - (var(--progress) * 50px)) rgba(0, 0, 0, calc(var(--progress) * 0.75)));
+  animation-duration: 1000ms;
+  animation-fill-mode: forwards;
+  animation-delay: 2000ms;
+}
+
+.past .fly-in {
+  --progress: 1;
+}
+
+.present .fly-in {
+  --progress: 0;
+  animation-name: fly-in;
+}
+
+.fly-in ~ .fly-in {
+  --end-rotation: 1090deg;
+  top: 55%;
+  left: 55%;
+  animation-delay: 2300ms;
+}
+
+[hidden] iframe[src^="https://gitcdn.link/cdn/surma/ishoudinireadyyet.com"] {
+  opacity: 0;
+  transition: none;
+}
+
+iframe[src^="https://gitcdn.link/cdn/surma/ishoudinireadyyet.com"] {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+
+#modulo .modulo::after {
+  counter-reset: modulo var(--modulo);
+  content: counter(modulo);
+  display: inline;
+}
+
+#modulo .modulo::before {
+  counter-reset: integerQuotient var(--integerQuotient);
+  content: counter(integerQuotient);
+  display: inline;
+}
+
+#modulo .modulo {
+  --integerQuotient: calc((var(--dividend) / var(--divisor)) - 0.5);
+  --modulo: calc(((var(--dividend) / var(--divisor)) - var(--integerQuotient)) * var(--divisor));
+}
